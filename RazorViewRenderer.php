@@ -91,33 +91,35 @@
 
 namespace yii\razor;
 
+use Yii;
 use yii\base\View;
+use yii\base\Exception;
 use yii\base\ViewRenderer as BaseViewRenderer;
 use yii\helpers\FileHelper;
 
 class RazorViewRenderer extends BaseViewRenderer
 {
-	private $_input;
-	private $_output;
-	private $_sourceFile;
+    private $_input;
+    private $_output;
+    private $_sourceFile;
     public $title = '';
     public $params = array();
-	/**
-	 * Parses the source view file and saves the results as another file.
-	 * This method is required by the parent class.
-	 * @param string the source view file path
-	 * @param string the resulting view file path
-	 */
-	protected function generateViewFile($sourceFile, $viewFile)
-	{
-		$this->_sourceFile = $sourceFile;
-		$this->_input = file_get_contents($sourceFile);
+    /**
+     * Parses the source view file and saves the results as another file.
+     * This method is required by the parent class.
+     * @param string the source view file path
+     * @param string the resulting view file path
+     */
+    protected function generateViewFile($sourceFile, $viewFile)
+    {
+        $this->_sourceFile = $sourceFile;
+        $this->_input = file_get_contents($sourceFile);
         $this->_output = "<?php /* source file: {$sourceFile} */ ?>\n";
 
         $this->parse(0, strlen($this->_input));
 
-		file_put_contents($viewFile, $this->_output);
-	}
+        file_put_contents($viewFile, $this->_output);
+    }
 
     public function render($view, $file, $params){
  
@@ -380,9 +382,9 @@ class RazorViewRenderer extends BaseViewRenderer
     }
 
     private function getLineNumber($currentPosition)
-	{
-		return count(explode("\n", substr($this->_input, 0, $currentPosition)));
-	}
+    {
+        return count(explode("\n", substr($this->_input, 0, $currentPosition)));
+    }
 }
 
 /**
