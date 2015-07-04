@@ -8,7 +8,7 @@
  *     'components'=>array(
  *         ......
  *         'viewRenderer'=>array(
- *             'class'=>'path.to.class.RazorViewRenderer',
+ *             'class'=>'yii.razon.RazorViewRenderer',
  *             'fileExtension'=>'.tpl',
  *         ),
  *     ),
