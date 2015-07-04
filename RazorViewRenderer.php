@@ -7,10 +7,13 @@
  * array(
  *     'components'=>array(
  *         ......
- *         'viewRenderer'=>array(
- *             'class'=>'yii.razon.RazorViewRenderer',
- *             'fileExtension'=>'.tpl',
- *         ),
+ *         'view' => [
+                'renderers' => [
+                    'tpl' => [
+                        'class' => 'yii\razor\RazorViewRenderer',
+                    ],
+                ],
+            ],
  *     ),
  * )
  * </pre>
