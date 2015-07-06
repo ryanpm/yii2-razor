@@ -96,6 +96,7 @@ namespace yii\razor;
 
 use Yii;
 use yii\base\View;
+use yii\widgets\Block;
 use yii\base\Exception;
 use yii\base\ViewRenderer as BaseViewRenderer;
 use yii\helpers\FileHelper;
@@ -105,6 +106,7 @@ class RazorViewRenderer extends BaseViewRenderer
     private $_input;
     private $_output;
     private $_sourceFile;
+    private $_layoutView;
     public $title = '';
     public $params = array();
     /**
@@ -126,6 +128,8 @@ class RazorViewRenderer extends BaseViewRenderer
 
     public function render($view, $file, $params){
  
+        $this->_layoutView = $view;
+
         $runtime = Yii::getAlias('@runtime');
 
         $relpath = md5($file).'.php';
@@ -143,6 +147,31 @@ class RazorViewRenderer extends BaseViewRenderer
         $view->params = $this->params;
         return $contents;
 
+    }
+
+    /**
+     * Begins recording a block.
+     * This method is a shortcut to beginning [[Block]]
+     * @param string $id the block ID.
+     * @param boolean $renderInPlace whether to render the block content in place.
+     * Defaults to false, meaning the captured block will not be displayed.
+     * @return Block the Block widget instance
+     */
+    public function beginBlock($id, $renderInPlace = false)
+    {
+        return Block::begin([
+            'id'            => $id,
+            'renderInPlace' => $renderInPlace,
+            'view'          => $this->_layoutView,
+        ]);
+    }
+
+    /**
+     * Ends recording a block.
+     */
+    public function endBlock()
+    {
+        Block::end();
     }
 
     /**
