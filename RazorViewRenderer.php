@@ -8,12 +8,12 @@
  *     'components'=>array(
  *         ......
  *         'view' => [
-                'renderers' => [
-                    'tpl' => [
-                        'class' => 'yii\razor\RazorViewRenderer',
-                    ],
-                ],
-            ],
+*               'renderers' => [
+*                   'tpl' => [
+*                       'class' => 'yii\razor\RazorViewRenderer',
+*                   ],
+*               ],
+*           ],
  *     ),
  * )
  * </pre>
@@ -127,10 +127,13 @@ class RazorViewRenderer extends BaseViewRenderer
     public function render($view, $file, $params){
  
         $runtime = Yii::getAlias('@runtime');
-        $relpath = str_replace( str_replace('\runtime', '', $runtime).'\\' , '', $file);
 
-        $newfile = $runtime.'\\'.$relpath;
-        FileHelper::createDirectory(dirname($newfile));
+        $relpath = md5($file).'.php';
+        // $relpath = str_replace( str_replace('\runtime', '', $runtime) .'\\' , '', $file);
+        $directory = $runtime.'/razor';
+        $newfile   = $directory.'/'.$relpath;
+ 
+        FileHelper::createDirectory( $directory );
         self::generateViewFile($file, $newfile);
         extract($params);
         ob_start();
