@@ -148,32 +148,7 @@ class RazorViewRenderer extends BaseViewRenderer
         return $contents;
 
     }
-
-    /**
-     * Begins recording a block.
-     * This method is a shortcut to beginning [[Block]]
-     * @param string $id the block ID.
-     * @param boolean $renderInPlace whether to render the block content in place.
-     * Defaults to false, meaning the captured block will not be displayed.
-     * @return Block the Block widget instance
-     */
-    public function beginBlock($id, $renderInPlace = false)
-    {
-        return Block::begin([
-            'id'            => $id,
-            'renderInPlace' => $renderInPlace,
-            'view'          => $this->_layoutView,
-        ]);
-    }
-
-    /**
-     * Ends recording a block.
-     */
-    public function endBlock()
-    {
-        Block::end();
-    }
-
+ 
     /**
      * Parse block of input template file from $beginBlock position to ($endBlock - 1).
      * Replaced all valid @-statement of Razor template syntax.
