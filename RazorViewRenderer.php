@@ -143,8 +143,6 @@ class RazorViewRenderer extends BaseViewRenderer
         ob_start();
         include($newfile);
         $contents = ob_get_clean();
-        $view->title = $this->title;
-        $view->params = $this->params;
         return $contents;
 
     }
